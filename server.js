@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(router)
 
 app.use("/",(req,res)=>{
-  res.sendFile(path.join(__dirname, '.\\client\\public\\index.html'));
+  res.sendFile(path.join(__dirname, '\\client\\build'));
 })
 const PORT = 5000;
 app.listen(PORT, () => {
