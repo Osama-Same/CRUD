@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(router)
 
 app.use("/",(req,res)=>{
-  res.sendFile(path.join(__dirname, '\\client\\build'));
+  res.sendFile(path.join(__dirname, '/client/build'));
 })
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
