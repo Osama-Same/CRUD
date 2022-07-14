@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const UpdateUser = (props) => {
   const [Name, setName] = useState(props.Name || "");
   const [Email, setEmail] = useState(props.Email || "");
@@ -93,7 +94,7 @@ const UpdateUser = (props) => {
                 <input
                   type="text"
                   className="form-control"
-                  name="Passowrd"
+                  name="Password"
                   value={Password || ""}
                   onChange={handlePassowrd}
                 />
@@ -141,6 +142,7 @@ const UpdateUser = (props) => {
               </div>
             </div>
             <div className="modal-footer">
+              <Link to={"/"}>
               <button
                 type="button"
                 className="btn btn-primary"
@@ -148,11 +150,12 @@ const UpdateUser = (props) => {
               >
                 Close
               </button>
+              </Link>
               <button
                 type="submit"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
-                onClick={updateUser(props.idUser)}
+                onClick={updateUser}
               >
                 Update
               </button>

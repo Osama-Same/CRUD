@@ -12,6 +12,7 @@ const GetAllUser = () => {
   const getAllUser = () => {
     axios.get("GetAllUser").then((res) => {
       setUser(res.data);
+      //console.log(res.data)
     });
   };
 
@@ -20,9 +21,9 @@ const GetAllUser = () => {
   };
   const data = user.map((e, i) => {
     return (
-      <tbody>
+      <tbody key={i}>
         <tr>
-          <th scope="row" key={i.idUser}>
+          <th scope="row" >
             {e.idUser}
           </th>
           <td>
@@ -42,20 +43,27 @@ const GetAllUser = () => {
             />
           </td>
           <td>
-            <button className="btn btn-danger" onClick={deleteUser}>Delete</button>
+            <button className="btn btn-danger" onClick={deleteUser}>
+              Delete
+            </button>
           </td>
           <td>
             <Link to={`/${e.idUser}`}>
-            <button
-              className="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              data-bs-whatever="@mdo"
-            >
-              Update
-            </button>
+              <button
+                className="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="@mdo"
+              >
+                Update
+              </button>
             </Link>
-            <UpdateUser getAllUser={getAllUser()} Name ={e.Name} Email = {e.Email} idUser={e.idUser}/>
+            <UpdateUser
+              getAllUser={getAllUser()}
+              Name={e.Name}
+              Email={e.Email}
+              idUser={e.idUser}
+            />
           </td>
         </tr>
       </tbody>
@@ -64,12 +72,25 @@ const GetAllUser = () => {
   return (
     <div>
       <Navbar />
-      <div className="text-center pt-3 pb-3">
-        <h2> Get All User </h2>
+      <div className=" pt-3 pb-3">
+        <div className="container pt-3 pb-3">
+          <div class="row justify-content-md-center">
+            <div className="col"></div>
+            <div className="col text-center">
+              <h2> Get All User </h2>
+            </div>
+            <div className="col text-end">
+              <Link to={"/AddUser"}>
+              <button className="btn btn-primary">Add User</button>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="container" style={{ marginTop: "50px" }}>
-        <div className="row">
-          <div className="col  pt-3 pb-3">
+      <div className="container-fluid" style={{ marginTop: "50px" }}>
+        <div className="row justify-content-md-center pt-3 pb-3">
+          <div className="col" >
+          <div className="table-responsive">
             <table className="table table-dark">
               <thead>
                 <tr>
@@ -86,6 +107,7 @@ const GetAllUser = () => {
               </thead>
               {data}
             </table>
+          </div>
           </div>
         </div>
       </div>
