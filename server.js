@@ -10,9 +10,9 @@ app.use(express.json());
 
 app.use(router)
 
-app.use("/",(req,res)=>{
-  res.sendFile(path.join(__dirname, '/client/build'));
-})
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client\\build', 'index.html'));
+});
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
