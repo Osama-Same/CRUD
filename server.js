@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path")
 const router = require("./Router/Router")
 require("./Connection/Database");
 require("dotenv").config();
@@ -9,6 +10,9 @@ app.use(express.json());
 
 app.use(router)
 
+app.use("/",(req,res)=>{
+  res.sendFile(path.join(__dirname, '.\\client\\public\\index.html'));
+})
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
