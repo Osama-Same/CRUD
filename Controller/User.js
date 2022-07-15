@@ -1,5 +1,8 @@
+const express = require("express");
 const connection = require("../Connection/Database");
 const cloudinary = require("../Connection/cloudinary");
+const app = express();
+app.use(express.json());
 require("dotenv").config();
 
 // Get All Users
@@ -59,7 +62,7 @@ const insertUser = async (req, res) => {
 
 // update id User
 const updateIdUser = async (req, res) => {
-  let img = null;
+  let Image = null;
 
   let idUser = req.params.idUser;
   let Name = req.body.Name;
@@ -68,13 +71,13 @@ const updateIdUser = async (req, res) => {
   let Phone = req.body.Phone;
   let Country = req.body.Country;
   if (req.file) {
-    img = await cloudinary.uploader.upload(req.file.path, {
+    Image = await cloudinary.uploader.upload(req.file.path, {
       folder: "CRUD/User",
     });
   } else {
     res.json("No images Selected");
   }
-  let Image = img.url;
+   Image = Image.url;
 
   let sql = `update users set 
       Name = '${Name}',
@@ -88,7 +91,7 @@ const updateIdUser = async (req, res) => {
     if (err) {
       res.json({ err: err });
       console.log(err);
-    }
+    }else
     if (result) {
       res.json(result);
       console.log({ result: "successfully" });

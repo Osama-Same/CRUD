@@ -1,17 +1,35 @@
-import  React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import GetAllUser from "./components/GetAllUser";
-import UpdateUser from "./components/UpdateUser";
-import InsertUser from "./components/InsertUser";
+import AddUser from "./components/AddUser";
+
 const App = () => {
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    getAllUser();
+  }, [user]);
+  const getAllUser = () => {
+    axios.get("GetAllUser").then((res) => {
+      setUser(res.data);
+      //console.log(res.data)
+    });
+  };
   return (
-  
-      <Routes>
-        <Route exact path="/" element={<GetAllUser/>}/>
-        <Route path="/:idUser" element={<UpdateUser/>}/>
-        <Route path="/AddUser" element={<InsertUser/>}/>
-      </Routes>
+    <Router>
+      <Switch>
+        <Route exact path={"/"}>
+          <Navbar />
+          <GetAllUser user={user}/>
+        </Route>
+        <Route exact path={"/AddUser"}>
+          <Navbar />
+          <AddUser getAllUser={getAllUser()}/>
+        </Route>
+      </Switch>
+    </Router>
   );
 };
-
 export default App;
