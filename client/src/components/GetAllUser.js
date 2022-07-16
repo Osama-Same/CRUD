@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
+
 const GetAllUser = (props) => {
   const data = props.user.map((e, i) => {
     return (
@@ -7,7 +9,7 @@ const GetAllUser = (props) => {
         <tr>
           <th scope="row">{e.idUser}</th>
           <td>
-            <Link to={""}>{e.Name}</Link>
+            <Link to={`/IdUser/${e.idUser}`}>{e.Name}</Link>
           </td>
           <td>{e.Email}</td>
           <td>{e.Phone}</td>
@@ -35,9 +37,10 @@ const GetAllUser = (props) => {
   });
   return (
     <div>
+      <Navbar />
       <div className=" pt-3 pb-3">
         <div className="container pt-3 pb-3">
-          <div class="row justify-content-md-center">
+          <div className="row justify-content-md-center">
             <div className="col"></div>
             <div className="col text-center">
               <h2> Get All User </h2>

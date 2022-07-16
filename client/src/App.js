@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
 import axios from "axios";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import React,{useState,useEffect} from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GetAllUser from "./components/GetAllUser";
 import AddUser from "./components/AddUser";
-
+import IdUser from "./components/IdUser";
 const App = () => {
   const [user, setUser] = useState([]);
   useEffect(() => {
@@ -18,18 +16,14 @@ const App = () => {
     });
   };
   return (
-    <Router>
-      <Switch>
-        <Route exact path={"/"}>
-          <Navbar />
-          <GetAllUser user={user}/>
-        </Route>
-        <Route exact path={"/AddUser"}>
-          <Navbar />
-          <AddUser getAllUser={getAllUser()}/>
-        </Route>
-      </Switch>
-    </Router>
+    <BrowserRouter>
+      <Routes>
+      <Route path="/" element={<GetAllUser  user={user}/>}/> 
+      <Route path="/AddUser" element={<AddUser getAllUser={getAllUser}  user={user}/>}/> 
+      <Route path="/IdUser/:idUser" element={<IdUser  user={user}/>}/> 
+      </Routes>
+    </BrowserRouter>
   );
 };
+
 export default App;

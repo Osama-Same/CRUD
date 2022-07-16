@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import Navbar from "./Navbar";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const AddUser = (props) => {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
@@ -9,7 +10,7 @@ const AddUser = (props) => {
   const [Country, setCountry] = useState("");
   const [Image, setImage] = useState(null);
   const [errors, setErrors] = useState("");
-  let history = useHistory();
+  let history = useNavigate();
   const handleFirstName = (e) => {
     setName(e.target.value);
     console.log(e.target.value);
@@ -46,14 +47,15 @@ const AddUser = (props) => {
     }
 
     axios
-      .post("register", fromData)
+      .post("insertUser", fromData)
       .then((res) => {
         if (res.data.err) {
           setErrors(res.data.err);
         } else if (res.data.result) {
-            props.getAllUser();
+          props.getAllUser();
+          history('/');
+          console.log(res.data);
           setErrors(res.data.result);
-          history.push("/");
         } else {
           setErrors(res.data);
         }
@@ -64,6 +66,7 @@ const AddUser = (props) => {
   };
   return (
     <div>
+      <Navbar />
       <div className=" pt-3 pb-3">
         <div className="container" style={{ marginTop: "60px" }}>
           <div className="row  justify-content-md-center ">
@@ -117,7 +120,7 @@ const AddUser = (props) => {
                   onChange={handlePhone}
                 />
               </div>
-             
+
               <div className="pt-3 pb-3">
                 <label className="col-form-label">Country:</label>
                 <select
